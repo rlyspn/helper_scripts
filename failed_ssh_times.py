@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from collections import defaultdict
+import matplotlib.pyplot as plt
 import re
 
 log_file = "/var/log/auth.log"
@@ -22,6 +23,16 @@ hour_count = defaultdict(int)
 hour_count = get_hour_count(log_file, hour_count)
 hour_count = get_hour_count(log_file+'.1', hour_count)
 hours = hour_count.items()
+hours = sorted(hours, key=lambda x: int(x[0]))
 print hours
 
-            
+x_val = [x[0] for x in hours]
+y_val = [y[1] for y in hours]
+
+plt.plot(x_val, y_val)
+
+plt.title("Failed SSH Connections Through The Day")
+plt.ylabel("Number of failed connections")
+plt.xlabel("Time of Day")
+
+plt.show()

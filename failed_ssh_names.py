@@ -7,8 +7,8 @@ import re
 
 fileName = "/var/log/auth.log"
 tell = "input_userauth_request: invalid user"
-min_count = 2
-title = "Failed SSH Log In Names (count > 2 %d)" % min_count
+min_count = 3
+title = "Failed SSH Log In Names (count > %d)" % min_count
 
 def get_name_count(input_file, nc):
     with open(input_file) as f:
