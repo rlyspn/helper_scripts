@@ -1,0 +1,28 @@
+#!/usr/bin/python
+
+'''
+Given a file with 1 float per line prints:
+mean median stdev min max 25_percentile 75_percentile
+'''
+
+import numpy as np
+import sys
+
+
+def get_floats(input_path):
+    floats = []
+    with open(input_path) as ip:
+        floats = map(float, [x for x in ip if len(x) > 0])
+    return floats
+
+
+if len(sys.argv) != 2:
+    print 'Expected: stats <input file>'
+else:
+    input_path = sys.argv[1]
+    floats = get_floats(input_path)
+    print "%f %f %f %f %f %f %f" % (np.mean(floats), np.median(floats),
+                                    np.std(floats), np.min(floats),
+                                    np.max(floats),
+                                    np.percentile(floats, 25),
+                                    np.percentile(floats, 75))
