@@ -21,8 +21,10 @@ if len(sys.argv) != 2:
 else:
     input_path = sys.argv[1]
     floats = get_floats(input_path)
-    print "%f %f %f %f %f %f %f" % (np.mean(floats), np.median(floats),
-                                    np.std(floats), np.min(floats),
-                                    np.max(floats),
-                                    np.percentile(floats, 25),
-                                    np.percentile(floats, 75))
+    print "mean %f" % np.mean(floats)
+    print "median %f" % np.median(floats)
+    print "std %f" % np.std(floats)
+    print "min %f" % np.min(floats)
+    print "max %f" % np.max(floats)
+    print "25th percentile %f" % np.percentile(floats, 25)
+    print "75th percentile %f" % np.percentile(floats, 75)
