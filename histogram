@@ -1,0 +1,50 @@
+#!/usr/bin/python
+
+import argparse
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def get_floats(input_file):
+    floats = []
+    with open(input_file, 'r') as infile:
+        for line in infile:
+            if len(line) > 0:
+                floats.append(float(line))
+    return floats
+
+
+def bucket_floats(floats, bucket_count):
+    ret_buckets = [0] * bucket_count
+    for fl in floats:
+        i = int(fl / 5)
+        ret_buckets[i] += 1
+    return ret_buckets
+
+
+def create_histogram(floats, buckets, title, x_axis, y_axis):
+    bar_width = 0.75
+    ret_buckets = bucket_floats(floats, buckets)
+    index = np.arange(buckets)
+    result = plt.bar(index, ret_buckets)
+    ticks = [(i + 1) * 5 for i in xrange(buckets)]
+
+    plt.xlabel(x_axis)
+    plt.ylabel(y_axis)
+    plt.title(title)
+    plt.xticks(index + bar_width, ticks)
+    plt.show()
+    pass
+
+buckets = 20
+parser = argparse.ArgumentParser()
+parser.add_argument("input_file", type=str)
+parser.add_argument("title", type=str)
+parser.add_argument("x_axis", type=str)
+parser.add_argument("y_axis", type=str)
+
+args = parser.parse_args()
+
+input_file = args.input_file
+floats = get_floats(input_file)
+create_histogram(floats, buckets, args.title, args.x_axis, args.y_axis)
